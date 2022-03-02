@@ -1,6 +1,5 @@
 package com.junhyeok.book.springboot.domain.posts;
 
-import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +24,7 @@ public class PostsRepositoryTest {
         postsRepository.deleteAll();
     }
 
+    // save, findAll 기능 테스트
     @Test
     public void 게시글저장_불러오기() {
         //given
