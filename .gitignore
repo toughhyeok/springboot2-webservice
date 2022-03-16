@@ -1,4 +1,4 @@
 .idea
 .gradle
 build
-application-oauth.properties
+application-oauth.yml
