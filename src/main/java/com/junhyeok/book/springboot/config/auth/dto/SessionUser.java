@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @Getter
 public class SessionUser implements Serializable {
+    // easier and better to serialize simple DTO class instead of the more complex entity class
     private String name;
     private String email;
     private String picture;

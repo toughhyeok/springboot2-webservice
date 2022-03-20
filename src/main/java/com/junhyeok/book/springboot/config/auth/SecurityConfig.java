@@ -7,24 +7,37 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @RequiredArgsConstructor
-@EnableWebSecurity
+@EnableWebSecurity  // enable spring security configs
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomOAuth2UserService customOAuth2UserService;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+    protected void configure(HttpSecurity http) throws Exception{
+        http
+                // disable to be able to use h2-console --> ??
+                .csrf().disable()
                 .headers().frameOptions().disable()
+
                 .and()
+                // set/manage authorizations by urls
                 .authorizeRequests()
-                .antMatchers("/", "/css/**", "/images/**",
-                        "/js/**", "/h2-console/**").permitAll()
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
+                // allow access to /api/v1/ to user roles only
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name())
-                .anyRequest().authenticated()
+                // anyRequest -> the rest of the urls
+                .anyRequest().authenticated()   // only allow authenticated users to have access (logged in users)
+
                 .and()
-                .logout().logoutSuccessUrl("/")
+                .logout()
+                .logoutSuccessUrl("/")
+
                 .and()
-                .oauth2Login().userInfoEndpoint().userService(customOAuth2UserService);
+                // set options for oauth2
+                .oauth2Login()
+                // set options for user info after successful login
+                .userInfoEndpoint()
+                // register UserService interface that defines actions handled after login is successful
+                .userService(customOAuth2UserService);
     }
 }
