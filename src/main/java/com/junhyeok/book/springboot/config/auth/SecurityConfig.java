@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 // set/manage authorizations by urls
                 .authorizeRequests()
-                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**").permitAll()
+                .antMatchers("/", "/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()
                 // allow access to /api/v1/ to user roles only
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name())
                 // anyRequest -> the rest of the urls
